@@ -65,10 +65,11 @@ If you're a Windows user, then use the [`psgshortcut` application](https://pypi.
 
 ## Release Notes
 
-### 1.1.0 13 Nov 2021
+### 1.2.0 13 Nov 2021
 
 * Added version number in the .py file
 * Added version number to right click menu
+* Added local copy of version for debugging
 * Posted to PyPI
 
 ### 1.0.0 13 Nov 2021
