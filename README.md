@@ -63,6 +63,18 @@ Currently in the works is support for additional back-ends.  `cx_freeze` is up n
 
 If you're a Windows user, then use the [`psgshortcut` application](https://pypi.org/project/psgshortcut/) to make a shortcut to this program so that you can then put on your desktop or pin to your taskbar (or any  other use that stops the need to type `psgresizer` ever again).
 
+## Release Notes
+
+### 1.1.0 13 Nov 2021
+
+* Added version number in the .py file
+* Added version number to right click menu
+* Posted to PyPI
+
+### 1.0.0 13 Nov 2021
+
+* Initial release, post to PyPI and  GitHub
+
 
 ## License
 

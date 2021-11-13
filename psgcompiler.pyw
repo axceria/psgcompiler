@@ -1,6 +1,10 @@
 import PySimpleGUI as sg
 from threading import Thread
-import sys, os, subprocess, shutil
+import sys, os,  shutil
+
+version = '1.1.0'
+
+__version__ = version.split()[0]
 
 '''
     Make a "Windows os" executable with PyInstaller
@@ -146,10 +150,12 @@ def main():
     layout = [[sg.TabGroup([[sg.Tab('Home', main_tab), sg.Tab('Arguments', arguments_tab, expand_x=True, ), sg.Tab('Booleans', bool_tab),
                              sg.Tab('Additions', additions_tab), sg.Tab('Other', multi_var_tab)]], expand_x=True, expand_y=True)]]
 
-    window = sg.Window('PSG Compiler', layout, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_LOC_EXIT, finalize=True, resizable=True)
+    right_click_menu = ['', ['Edit Me', 'Version', 'File Location', version, 'Exit']]
+
+    window = sg.Window('PSG Compiler', layout, right_click_menu=right_click_menu, finalize=True, resizable=True)
     [window[variable].block_focus() for variable in bool_list]
     while True:
-        event, values = window.read()
+        event, values = window.read(timeout=500)
         if event in ('Exit', 'Quit', None):
             break
         elif event == 'File Location':
