@@ -65,6 +65,10 @@ If you're a Windows user, then use the [`psgshortcut` application](https://pypi.
 
 ## Release Notes
 
+### 1.3.0 13 Nov 2021
+
+* Version number of psgcompiler, PyInstaller both added to right-click-menu and to version popup
+
 ### 1.2.0 13 Nov 2021
 
 * Added version number in the .py file

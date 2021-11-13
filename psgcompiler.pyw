@@ -1,8 +1,9 @@
 import PySimpleGUI as sg
 from threading import Thread
 import sys, os,  shutil
+import PyInstaller
 
-version = '1.2.0'
+version = '1.3.0'
 
 __version__ = version.split()[0]
 
@@ -152,7 +153,7 @@ def main():
     layout = [[sg.TabGroup([[sg.Tab('Home', main_tab), sg.Tab('Arguments', arguments_tab, expand_x=True, ), sg.Tab('Booleans', bool_tab),
                              sg.Tab('Additions', additions_tab), sg.Tab('Other', multi_var_tab)]], expand_x=True, expand_y=True)]]
 
-    right_click_menu = ['', ['Edit Me', 'Version', 'File Location', version, 'Exit']]
+    right_click_menu = ['', ['Edit Me', 'Version', 'File Location', f'Version {version}', f'PyInstaller {PyInstaller.__version__}', 'Exit']]
 
     window = sg.Window('PSG Compiler', layout, right_click_menu=right_click_menu, finalize=True, resizable=True)
     [window[variable].block_focus() for variable in bool_list]
@@ -165,7 +166,7 @@ def main():
         elif event == 'Edit Me':
             sg.execute_editor(__file__)
         elif event == 'Version':
-            sg.popup_scrolled(sg.get_versions())
+            sg.popup_scrolled(f'psgcompiler version {ver}', sg.get_versions(), f'PyInstaller version for this Python version: {PyInstaller.__version__}')
         elif event == '-THREAD CPRINT-':
             sg.cprint(values[event])
         elif event == '-THREAD FINISHED-':
