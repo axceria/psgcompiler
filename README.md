@@ -9,7 +9,7 @@
 "Compile" your Python programs into an EXE for Windows, an APP for Mac, and a binary for Linux
 
 
-
+![](https://raw.githubusercontent.com/PySimpleGUI/psgcompiler/main/screenshot_for_readme/psgcompiler_screenshot.jpg?token=ALAGMY3Z33WHFX3RTFXEZ73BTEUPO)
 
 
 
@@ -50,6 +50,10 @@ PySimpleGUI users in particular will greatly benefit from the `psgcompiler` as y
 If your program is relatively simple, then you only need to supply the name of your Python file, and an optional icon file.
 
 Here is an example session showing only the .pyw file and the .ico file being supplied.  
+
+
+![](https://raw.githubusercontent.com/PySimpleGUI/psgcompiler/main/screenshot_for_readme/psgcompiler_gif.gif?token=ALAGMYYG5EDJ3FH7GCCWLV3BTEUSE)
+
 
 ## Additional Back-ends
 
