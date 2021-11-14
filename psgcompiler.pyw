@@ -2,10 +2,13 @@ import PySimpleGUI as sg
 from threading import Thread
 import sys, os,  shutil
 import PyInstaller
+import webbrowser
 
-version = '1.3.0'
+version = '1.5.0'
 
 __version__ = version.split()[0]
+
+PYINSTALLER_HELP_URL = r'https://pyinstaller.readthedocs.io/en/stable/when-things-go-wrong.html'
 
 '''
     Make a "Windows os" executable with PyInstaller
@@ -118,7 +121,8 @@ def main():
                 [sg.Frame('Output', font='Any 13', expand_x=True, expand_y=True, layout=[
                     [sg.Multiline(font='Courier 10', key='-OUTPUT-', size=(85,10), expand_x=True, expand_y=True, reroute_cprint=True, write_only=True, autoscroll=True)]])],
                 [sg.HorizontalSeparator()],
-                [sg.Button("CONVERT", expand_x=True)]
+                [sg.Push(), sg.T('Click Me for PyInstaller Help', enable_events=True, key='-PYINSTALLER HELP-', tooltip='If you have problems with PyInstaller, click and\nyou will be taken to the help page'), sg.Push()],
+                [sg.Button("CONVERT", expand_x=True)],
                 ]
 
     # :O
@@ -157,8 +161,11 @@ def main():
 
     window = sg.Window('PSG Compiler', layout, right_click_menu=right_click_menu, finalize=True, resizable=True)
     [window[variable].block_focus() for variable in bool_list]
+    window['-PYINSTALLER HELP-'].set_cursor('Hand1')
+    counter = 0
     while True:
         event, values = window.read(timeout=500)
+        counter += 1
         if event in ('Exit', 'Quit', None):
             break
         elif event == 'File Location':
@@ -264,6 +271,8 @@ def main():
                               'close this window and copy command line from text printed out in main_tab window',
                               'Additional info is also listen in the output log.')
                 sg.cprint('Raw Command For PyInstaller:\n\n', command_raw)
+        elif event == '-PYINSTALLER HELP-':
+            webbrowser.open_new_tab(PYINSTALLER_HELP_URL)
         # Thank you!
         command = f"{window['-ONEFILE BUTTON-'].get_text()} {window['-WINDOWED BUTTON-'].get_text()} "
         for key in variable_list:
