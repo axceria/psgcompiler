@@ -4,7 +4,7 @@ import sys, os,  shutil
 import PyInstaller
 import webbrowser
 
-version = '1.5.0'
+version = '1.5.1'
 
 __version__ = version.split()[0]
 
@@ -325,7 +325,7 @@ def main():
             script = values['-SOURCEFILE-']
             source_path, source_filename = os.path.split(script)
             #command += f'--workpath "{source_path}" --distpath "{source_path}" --specpath "{source_path}" "{script}"'
-            command += f'--workpath "{source_path}" --specpath "{source_path}" "{script}"' # causes some issues on Linux/MacOS
+            command += f'--workpath "{source_path}" --specpath "{source_path}" --distpath "{os.path.join(source_path, "dist")}" "{script}"' # causes some issues on Linux/MacOS
         window['-COMMAND-'].update(command)
     window.close()
     sys.exit(0)
