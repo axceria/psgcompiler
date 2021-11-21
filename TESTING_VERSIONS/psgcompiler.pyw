@@ -51,16 +51,18 @@ def run_finish(p, window, script, del_pycache=False, name=None):
         
         if name:
             os.remove(os.path.join(source_path, f"{name}.spec"))
-            if sys.platform == "Windows":
-                shutil.move(os.path.join(source_path, f"dist/{name}.exe"), os.path.join(source_path, f"{name}.exe"))
+            if sys.platform == "win32":
+                shutil.move(os.path.join(os.path.join(source_path, "dist"), "{name}.exe"), os.path.join(source_path, f"{name}.exe"))
             else:
-                shutil.move(os.path.join(source_path, f"dist/{name}"), os.path.join(source_path, f"{name}"))
+                shutil.move(os.path.join(os.path.join(source_path, "dist"), name), os.path.join(source_path, f"{name}"))
+            shutil.rmtree(os.path.join(source_path, name))
         else:
             os.remove(os.path.join(source_path, f"{filename_no_ext}.spec"))
-            if sys.platform == "Windows":
-                shutil.move(os.path.join(source_path, f"dist/{filename_no_ext}.exe"), os.path.join(source_path, f"{filename_no_ext}.exe"))
+            if sys.platform == "win32":
+                shutil.move(os.path.join(os.path.join(source_path, "dist"), f"{filename_no_ext}.exe"), os.path.join(source_path, f"{filename_no_ext}.exe"))
             else:
-                shutil.move(os.path.join(source_path, f"dist/{filename_no_ext}"), os.path.join(source_path, f"{filename_no_ext}"))
+                shutil.move(os.path.join(os.path.join(source_path, "dist"), filename_no_ext), os.path.join(source_path, f"{filename_no_ext}"))
+            shutil.rmtree(os.path.join(source_path, filename_no_ext))
                 
         shutil.rmtree(os.path.join(source_path, 'dist'))
         
