@@ -4,7 +4,7 @@ import sys, os,  shutil
 import PyInstaller
 import webbrowser
 
-version = '1.5.1'
+version = '1.5.2'
 
 __version__ = version.split()[0]
 
@@ -49,42 +49,21 @@ def run_finish(p, window, script, del_pycache=False, name=None):
         source_path, source_filename = os.path.split(script)
         filename_no_ext, filename_ext = os.path.splitext(source_filename)
         
-        # Windows, Linux, or Mac?
-        platform = "Linux" if sys.platform == 'linux' or sys.platform == 'linux2' else "mac" if sys.platform == 'darwin' else "Windows" if sys.platform == 'win32' else "Unknown"
-        
         if name:
-            shutil.rmtree(os.path.join(source_path, name))
-        else:
-            shutil.rmtree(os.path.join(source_path, filename_no_ext))
-        
-        # This looks scary but I promise it's not.
-        if name:
-            # Delete specfile
             os.remove(os.path.join(source_path, f"{name}.spec"))
-            
-            # Move the crafted "compiled" file
-            if platform == "Windows":
+            if sys.platform == "Windows":
                 shutil.move(os.path.join(source_path, f"dist/{name}.exe"), os.path.join(source_path, f"{name}.exe"))
-            elif platform == "mac":
-                shutil.move(os.path.join(source_path, f"dist/{name}"), os.path.join(source_path, f"{name}"))
-            elif platform == "Linux":
+            else:
                 shutil.move(os.path.join(source_path, f"dist/{name}"), os.path.join(source_path, f"{name}"))
         else:
-            # Delete specfile
             os.remove(os.path.join(source_path, f"{filename_no_ext}.spec"))
-            
-            # Move the crafted "compiled" file
-            if platform == "Windows":
+            if sys.platform == "Windows":
                 shutil.move(os.path.join(source_path, f"dist/{filename_no_ext}.exe"), os.path.join(source_path, f"{filename_no_ext}.exe"))
-            elif platform == "mac":
-                shutil.move(os.path.join(source_path, f"dist/{filename_no_ext}"), os.path.join(source_path, f"{filename_no_ext}"))
-            elif platform == "Linux":
+            else:
                 shutil.move(os.path.join(source_path, f"dist/{filename_no_ext}"), os.path.join(source_path, f"{filename_no_ext}"))
                 
-        # Delete the dist folder (folder containing the crafted file)
         shutil.rmtree(os.path.join(source_path, 'dist'))
         
-        # Was __pycache__ there before compiling? If not, delete.
         if del_pycache:
             shutil.rmtree(os.path.join(source_path, '__pycache__'))
         
@@ -296,7 +275,7 @@ def main():
                 window['--STATUS_IMAGE--'].update(sg.EMOJI_BASE64_YIKES)
                 command = values['-PYINSTALLER-'] if  values['-PYINSTALLER-'] else 'pyinstaller'
                 p = sg.execute_command_subprocess(command, values['-COMMAND-'], pipe_output=True)
-                thread = Thread(target=run_finish, args=(p, window, values['-SOURCEFILE-'], False if os.path.exists(os.path.join(source_path, '__pycache__')) else True, name)).start()
+                thread = Thread(target=run_finish, args=(p, window, values['-SOURCEFILE-'], not os.path.exists(os.path.join(source_path, '__pycache__')), name)).start()
             except:
                 window['CONVERT'].update(disabled=False)
                 sg.PopupError('Something went wrong',
@@ -324,13 +303,11 @@ def main():
         if values['-SOURCEFILE-']:
             script = values['-SOURCEFILE-']
             source_path, source_filename = os.path.split(script)
-            #command += f'--workpath "{source_path}" --distpath "{source_path}" --specpath "{source_path}" "{script}"'
-            command += f'--workpath "{source_path}" --specpath "{source_path}" --distpath "{os.path.join(source_path, "dist")}" "{script}"' # causes some issues on Linux/MacOS
+            command += f'--workpath "{source_path}" --specpath "{source_path}" --distpath "{os.path.join(source_path, "dist")}" "{script}"'
         window['-COMMAND-'].update(command)
     window.close()
     sys.exit(0)
 
 
 if __name__ == '__main__':
-
     main()
