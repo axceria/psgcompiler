@@ -4,7 +4,7 @@ import sys, os,  shutil
 import PyInstaller
 import webbrowser
 
-version = '1.5.0'
+version = '1.5.1'
 
 __version__ = version.split()[0]
 
@@ -112,7 +112,7 @@ def main():
                 [sg.Text('Icon: ', s=20), sg.Input(key='-ICONFILE-', expand_x=True, enable_events=True),
                  sg.FileBrowse(target='-ICONFILE-', file_types=(("Icon Files", "*.ico"),))],
                 [sg.Text('Optional specific pyinstaller: ', s=20), sg.Input(key='-PYINSTALLER-', expand_x=True),
-                 sg.FileBrowse(target='-ICONFILE-', file_types=(("Icon Files", "*.ico"),))],
+                 sg.FileBrowse(target='-PYINSTALLER-', file_types=(("All Files", "*.*"),))],
                 [sg.Text('Arguments: ', s=10), sg.Button('--onefile', key='-ONEFILE BUTTON-', enable_events=True, expand_x=True), sg.Button('--windowed', key='-WINDOWED BUTTON-', enable_events=True, expand_x=True)],
                 [sg.HorizontalSeparator()],
                 [sg.Frame('Command', font='Any 13', expand_x=True, layout=[
