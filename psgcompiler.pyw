@@ -4,7 +4,7 @@ import sys, os,  shutil
 import PyInstaller
 import webbrowser
 
-version = '1.5.1'
+version = '1.6'
 
 __version__ = version.split()[0]
 
@@ -82,7 +82,7 @@ def main():
     icon = b'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'
 
     sg.set_options(icon=icon)    # first make sure version of PySimpleGUI is high enough
-    if int(sg.__version__.split('.')[1]) < 54:
+    if  int(sg.__version__.split('.')[0]) == 4 and int(sg.__version__.split('.')[1]) < 54:
         sg.popup_error('You need a version of PySimpleGUI >= 4.54.0 to run',
                        f'You are running version {sg.__version__}')
         exit()
@@ -122,7 +122,7 @@ def main():
                     [sg.Multiline(font='Courier 10', key='-OUTPUT-', size=(85,10), expand_x=True, expand_y=True, reroute_cprint=True, write_only=True, autoscroll=True)]])],
                 [sg.HorizontalSeparator()],
                 [sg.Push(), sg.T('Click Me for PyInstaller Help', enable_events=True, key='-PYINSTALLER HELP-', tooltip='If you have problems with PyInstaller, click and\nyou will be taken to the help page'), sg.Push()],
-                [sg.Button("CONVERT", expand_x=True)],
+                [sg.Button("CONVERT", expand_x=True), sg.Sizegrip()],
                 ]
 
     # :O
@@ -164,7 +164,7 @@ def main():
     window['-PYINSTALLER HELP-'].set_cursor('Hand1')
     counter = 0
     while True:
-        event, values = window.read(timeout=500)
+        event, values = window.read(timeout=None)
         counter += 1
         if event in ('Exit', 'Quit', None):
             break
@@ -173,7 +173,7 @@ def main():
         elif event == 'Edit Me':
             sg.execute_editor(__file__)
         elif event == 'Version':
-            sg.popup_scrolled(f'psgcompiler version {ver}', sg.get_versions(), f'PyInstaller version for this Python version: {PyInstaller.__version__}')
+            sg.popup_scrolled(f'psgcompiler version {ver}', sg.get_versions(), f'PyInstaller version for this Python version: {PyInstaller.__version__}', f'Source file {__file__}')
         elif event == '-THREAD CPRINT-':
             sg.cprint(values[event])
         elif event == '-THREAD FINISHED-':
