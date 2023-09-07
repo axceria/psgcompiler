@@ -4,7 +4,7 @@ import sys, os,  shutil
 import PyInstaller
 import webbrowser
 
-version = '1.6'
+version = '1.6.1'
 
 __version__ = version.split()[0]
 
@@ -50,8 +50,8 @@ def run_finish(p, window, script, name=None):
             folder_to_remove = os.path.join(source_path, name)
             file_to_remove = os.path.join(source_path, name + '.spec')
         else:
-            filename_no_ext, filename_ext = os.path.splitext(source_filename)
-            folder_to_remove = os.path.join(source_path, filename_no_ext)
+            filename_no_ext, _ = os.path.splitext(source_filename)
+            folder_to_remove = os.path.join(source_path, f"psc_{filename_no_ext}_tmp")
             file_to_remove = os.path.join(source_path, filename_no_ext + '.spec')
 
         shutil.rmtree(folder_to_remove)
@@ -292,7 +292,8 @@ def main():
         if values['-SOURCEFILE-']:
             script = values['-SOURCEFILE-']
             source_path, source_filename = os.path.split(script)
-            command += f'--workpath "{source_path}" --distpath "{source_path}" --specpath "{source_path}" "{script}"'
+            filename_no_ext, _ = os.path.splitext(source_filename)
+            command += f'--workpath "{source_path}/psc_{filename_no_ext}_tmp" --distpath "{source_path}" --specpath "{source_path}" "{script}"'
         window['-COMMAND-'].update(command)
     window.close()
     sys.exit(0)
